@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
+import { Container, Menu, PageBody } from './AppStyled';
+
+import HomeScreen from './pages/HomeScreen';
+import Tela2Screen from './pages/Tela2Screen';
+
+import MenuItem from './components/MenuItem';
 
 function App() {
+  const name = useSelector(state => state.user.name);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Container>
+        <Menu>
+          <Link to="/"><MenuItem icon="/assets/store.png"/></Link>
+          <Link to="/orders"><MenuItem icon="/assets/order.png"/></Link>
+          <Link to="/profile"><MenuItem icon="/assets/profile.png"/></Link>
+        </Menu>
+        <PageBody>
+          <Routes>
+            <Route path="/" element={<HomeScreen />} />
+            <Route path="/tela2/:nome" element={<Tela2Screen/>} />
+          </Routes>
+        </PageBody>
+      </Container>
+
+
+    </BrowserRouter>
   );
 }
 
-export default App;
+export default App;  
+
+
+
+
+
